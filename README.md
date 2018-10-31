@@ -29,7 +29,6 @@ const graphQLClient = new GraphQLClient(
 const useGraphQL = setupClient(graphQLClient)
 
 function App() {
-  const [count, setCount] = useState(0)
   const { data } = useGraphQL(gql`
     {
       Movie(title: "Inception") {
