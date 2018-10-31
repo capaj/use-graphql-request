@@ -1,23 +1,23 @@
-[![Build Status](https://travis-ci.org/capaj/use-graphql.svg?branch=master)](https://travis-ci.org/capaj/use-graphql.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/capaj/use-graphql/badge.svg?branch=master)](https://coveralls.io/github/capaj/use-graphql?branch=master)
+[![Build Status](https://travis-ci.org/capaj/use-graphql-request.svg?branch=master)](https://travis-ci.org/capaj/use-graphql-request.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/capaj/use-graphql-request/badge.svg?branch=master)](https://coveralls.io/github/capaj/use-graphql-request?branch=master)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-# use-graphql
+# use-graphql-request
 
 a minimal hook for querying graphql endpoint from react
 
 ## Install
 
 ```
-npm i use-graphql
+npm i use-graphql-request
 # if you don't already have, also install peer deps
-npm i use-graphql graphql-request react graphql
+npm i use-graphql-request graphql-request react graphql
 ```
 
 ## Usage
 
 ```ts
-import { setupClient } from './use-graphql'
+import { setupClient } from 'use-graphql-request'
 import gql from 'graphql-tag'
 import { GraphQLClient } from 'graphql-request'
 

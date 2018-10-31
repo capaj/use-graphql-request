@@ -1,7 +1,7 @@
 {
-  "name": "use-graphql",
+  "name": "use-graphql-request",
   "version": "0.0.1",
-  "description": "use-graphql",
+  "description": "a minimal react hook for querying graphql endpoint from react",
   "license": "MIT",
   "repository": "",
   "author": {
@@ -9,13 +9,15 @@
     "email": "capajj@gmail.com"
   },
   "keywords": [
-    ""
+    "graphql",
+    "request",
+    "minimal"
   ],
   "files": [
     "lib"
   ],
-  "main": "lib/use-graphql.js",
-  "typings": "lib/use-graphql.d.ts",
+  "main": "lib/use-gql.js",
+  "typings": "lib/use-gql.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
