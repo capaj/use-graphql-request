@@ -8,7 +8,7 @@
     "strict": true,
     "outDir": "./lib",
     "preserveConstEnums": true,
-
+    "jsx": "react",
     "skipLibCheck": true,
     "removeComments": true,
     "inlineSourceMap": true,
