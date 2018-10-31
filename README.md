@@ -16,6 +16,8 @@ npm i use-graphql-request graphql-request react graphql
 
 ## Usage
 
+[![Edit react-hooks-1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/2okylmqojr)
+
 ```ts
 import { setupClient } from 'use-graphql-request'
 import gql from 'graphql-tag'
