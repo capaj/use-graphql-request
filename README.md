@@ -1,34 +1,48 @@
-[![Build Status](https://travis-ci.org/{{github-user-name}}/{{github-app-name}}.svg?branch=master)](https://travis-ci.org/{{github-user-name}}/{{github-app-name}}.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/{{github-user-name}}/{{github-app-name}}/badge.svg?branch=master)](https://coveralls.io/github/{{github-user-name}}/{{github-app-name}}?branch=master)
+[![Build Status](https://travis-ci.org/capaj/use-graphql.svg?branch=master)](https://travis-ci.org/capaj/use-graphql.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/capaj/use-graphql/badge.svg?branch=master)](https://coveralls.io/github/capaj/use-graphql?branch=master)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-# Using this module in other modules
+# use-graphql
 
-Here is a quick example of how this module can be used in other modules. The [TypeScript Module Resolution Logic](https://www.typescriptlang.org/docs/handbook/module-resolution.html) makes it quite easy. The file `src/index.ts` is a [barrel](https://basarat.gitbooks.io/typescript/content/docs/tips/barrel.html) that re-exports selected exports from other files. The _package.json_ file contains `main` attribute that points to the generated `lib/index.js` file and `typings` attribute that points to the generated `lib/index.d.ts` file.
+a minimal hook for querying graphql endpoint from react
 
-> If you are planning to have code in multiple files (which is quite natural for a NodeJS module) that users can import, make sure you update `src/index.ts` file appropriately.
+## Install
 
-Now assuming you have published this amazing module to _npm_ with the name `my-amazing-lib`, and installed it in the module in which you need it -
+```
+npm i use-graphql
+# if you don't already have, also install peer deps
+npm i use-graphql graphql-request react graphql
+```
 
-- To use the `Greeter` class in a TypeScript file -
+## Usage
 
 ```ts
-import { Greeter } from "my-amazing-lib";
+import { setupClient } from './use-graphql'
+import gql from 'graphql-tag'
+import { GraphQLClient } from 'graphql-request'
 
-const greeter = new Greeter("World!");
-greeter.greet();
+const graphQLClient = new GraphQLClient(
+  'https://api.graph.cool/simple/v1/movies'
+)
+const useGraphQL = setupClient(graphQLClient)
+
+function App() {
+  const [count, setCount] = useState(0)
+  const { data } = useGraphQL(gql`
+    {
+      Movie(title: "Inception") {
+        releaseDate
+        actors {
+          name
+        }
+      }
+    }
+  `)
+  console.log('resp', data) // logs undefined and then {"Movie":{"releaseDate":"2010-08-28T20:00:00.000Z","actors":[{"name":"Leonardo DiCaprio"},{"name":"Ellen Page"},{"name":"Tom Hardy"},{"name":"Joseph Gordon-Levitt"},{"name":"Marion Cotillard"}]}}
+  return <div className="App">{JSON.stringify(data)}</div>
+}
 ```
 
-- To use the `Greeter` class in a JavaScript file -
+## Is this a replacement for apollo/relay?
 
-```js
-const Greeter = require('my-amazing-lib').Greeter;
-
-const greeter = new Greeter('World!');
-greeter.greet();
-```
-
-## Setting travis and coveralls badges
-1. Sign in to [travis](https://travis-ci.org/) and activate the build for your project.
-2. Sign in to [coveralls](https://coveralls.io/) and activate the build for your project.
-3. Replace {{github-user-name}}/{{github-app-name}} with your repo details like: "ospatil/generator-node-typescript".
+No, it's only suitable for small and simple apps-see [FAQ on graphql-request](https://github.com/prisma/graphql-request#whats-the-difference-between-graphql-request-apollo-and-relay). It doesn't have any caching, no links, no complex features.
