@@ -29,7 +29,7 @@ const graphQLClient = new GraphQLClient(
 const useGraphQL = setupClient(graphQLClient)
 
 function App() {
-  const { data } = useGraphQL(gql`
+  const { data } = useGraphQL<{ Movie: any }>(gql`
     {
       Movie(title: "Inception") {
         releaseDate

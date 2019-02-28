@@ -12,7 +12,10 @@
     "skipLibCheck": true,
     "removeComments": true,
     "inlineSourceMap": true,
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/**/*", "**/*-spec.ts"]

@@ -6,19 +6,21 @@ import { useEffect, useState } from 'react'
 interface IState<T> {
   loading: boolean
   data?: T
-  errors: object[]
+  errors?: object[]
 }
 
 export function setupClient(graphQLClient: GraphQLClient) {
-  return function useGraphQL<T>(query: any, variables: object): IState<T> {
-    const [state, setState] = useState({ loading: true })
+  return function useGraphQL<T>(query: any, variables?: object): IState<T> {
+    const [state, setState] = useState<IState<T>>({
+      loading: true
+    })
     const queryAsString = print(query)
 
     useEffect(
       () => {
         let isRelevant = true
-        graphQLClient.request(queryAsString).then(
-          (data) => {
+        graphQLClient.request<T>(queryAsString).then(
+          (data: T) => {
             if (isRelevant) {
               setState({ data, loading: false })
             }
