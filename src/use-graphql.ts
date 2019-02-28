@@ -1,6 +1,5 @@
 import { print } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
-// @ts-ignore
 import { useEffect, useState } from 'react'
 
 interface IState<T> {
@@ -16,28 +15,25 @@ export function setupClient(graphQLClient: GraphQLClient) {
     })
     const queryAsString = print(query)
 
-    useEffect(
-      () => {
-        let isRelevant = true
-        graphQLClient.request<T>(queryAsString).then(
-          (data: T) => {
-            if (isRelevant) {
-              setState({ data, loading: false })
-            }
-          },
-          (res) => {
-            if (isRelevant) {
-              setState({ errors: res.response.errors, loading: false })
-            }
+    useEffect(() => {
+      let isRelevant = true
+      graphQLClient.request<T>(queryAsString).then(
+        (data: T) => {
+          if (isRelevant) {
+            setState({ data, loading: false })
           }
-        )
-
-        return () => {
-          isRelevant = false
+        },
+        (res) => {
+          if (isRelevant) {
+            setState({ errors: res.response.errors, loading: false })
+          }
         }
-      },
-      [queryAsString, JSON.stringify(variables)]
-    )
+      )
+
+      return () => {
+        isRelevant = false
+      }
+    }, [queryAsString, JSON.stringify(variables)])
 
     return state
   }
