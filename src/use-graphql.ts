@@ -17,7 +17,7 @@ export function setupClient(graphQLClient: GraphQLClient) {
 
     useEffect(() => {
       let isRelevant = true
-      graphQLClient.request<T>(queryAsString).then(
+      graphQLClient.request<T>(queryAsString, variables).then(
         (data: T) => {
           if (isRelevant) {
             setState({ data, loading: false })
