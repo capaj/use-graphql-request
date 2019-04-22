@@ -8,9 +8,9 @@ a minimal hook for querying graphql endpoint from react
 
 ## Install
 
-```
+```sh
 npm i use-graphql-request
-# if you don't already have, also install peer deps
+# also install peer deps if you don't already have them
 npm i use-graphql-request graphql-request react graphql
 ```
 
@@ -18,14 +18,11 @@ npm i use-graphql-request graphql-request react graphql
 
 [![Edit react-hooks-1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/2okylmqojr)
 
-```ts
+```tsx
 import { setupClient } from 'use-graphql-request'
 import gql from 'graphql-tag'
 import { GraphQLClient } from 'graphql-request'
 
-const graphQLClient = new GraphQLClient(
-  'https://api.graph.cool/simple/v1/movies'
-)
 const useGraphQL = setupClient(graphQLClient)
 
 function App() {
@@ -42,6 +39,16 @@ function App() {
   console.log('resp', data) // logs undefined and then {"Movie":{"releaseDate":"2010-08-28T20:00:00.000Z","actors":[{"name":"Leonardo DiCaprio"},{"name":"Ellen Page"},{"name":"Tom Hardy"},{"name":"Joseph Gordon-Levitt"},{"name":"Marion Cotillard"}]}}
   return <div className="App">{JSON.stringify(data)}</div>
 }
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(
+  <UseGraphQLProvider
+    client={new GraphQLClient('https://api.graph.cool/simple/v1/movies')}
+  >
+    <App />
+  </UseGraphQLProvider>,
+  rootElement
+)
 ```
 
 ## Is this a replacement for apollo/relay?

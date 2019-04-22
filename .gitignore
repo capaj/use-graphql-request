@@ -63,3 +63,5 @@ typings/
 
 lib
 package-lock.json
+example/dist
+example/.cache

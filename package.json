@@ -1,6 +1,6 @@
 {
   "name": "use-graphql-request",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "a minimal react hook for querying graphql endpoint from react",
   "license": "MIT",
   "repository": "",
@@ -25,39 +25,40 @@
     "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
     "test": "jest",
+    "example": "cd example && parcel index.html",
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
     "w": "jest --watch"
   },
   "peerDependencies": {
-    "graphql": "14.1.1",
-    "graphql-request": "1.8.2",
-    "react": "16.8.3"
+    "graphql": "^14",
+    "graphql-request": "^1.8.2",
+    "react": "^16.8.6"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.5",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^10.12.24",
-    "@types/react": "^16.8.2",
-    "@types/react-dom": "^16.8.0",
-    "coveralls": "^3.0.2",
-    "graphql": "14.1.1",
+    "@types/graphql": "^14.2.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.6",
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4",
+    "coveralls": "^3.0.3",
+    "graphql": "14.2.1",
     "graphql-request": "1.8.2",
     "graphql-tag": "^2.10.1",
-    "jest": "^24.1.0",
-    "prettier": "^1.16.4",
+    "jest": "^24.7.1",
+    "parcel-bundler": "^1.12.3",
+    "prettier": "^1.17.0",
     "react": "16.8.1",
-    "react-dom": "^16.8.3",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.3",
-    "ts-jest": "^24.0.0",
-    "ts-node": "^8.0.2",
-    "tslint": "^5.13.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.3.3"
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.4"
   },
   "engines": {
     "node": ">=6.0.0"
-  },
-  "dependencies": {}
+  }
 }
