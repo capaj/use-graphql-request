@@ -19,11 +19,8 @@ npm i use-graphql-request graphql-request react graphql
 [![Edit react-hooks-1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/2okylmqojr)
 
 ```tsx
-import { setupClient } from 'use-graphql-request'
 import gql from 'graphql-tag'
-import { GraphQLClient } from 'graphql-request'
-
-const useGraphQL = setupClient(graphQLClient)
+import { UseGraphQLProvider, useGraphQL } from 'graphql-request'
 
 function App() {
   const { data } = useGraphQL<{ Movie: any }>(gql`

@@ -1,4 +1,4 @@
-import { setupClient } from './use-graphql'
+import { UseGraphQLProvider, useGraphQL } from './use-graphql'
 import { GraphQLClient } from 'graphql-request'
 import gql from 'graphql-tag'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -9,10 +9,10 @@ describe('useGraphQL', () => {
     const graphQLClient = new GraphQLClient(
       'https://api.graph.cool/simple/v1/movies'
     )
-    const useG = setupClient(graphQLClient)
+
     function App() {
       // console.log('aaaa')
-      const res = useG<{ Movie: any }>(gql`
+      const res = useGraphQL<{ Movie: any }>(gql`
         {
           Movie(title: "Inception") {
             releaseDate
@@ -30,6 +30,10 @@ Object {
 `)
       return <div className="App">{JSON.stringify(res)}</div>
     }
-    renderToStaticMarkup(<App />)
+    renderToStaticMarkup(
+      <UseGraphQLProvider client={graphQLClient}>
+        <App />
+      </UseGraphQLProvider>
+    )
   })
 })
