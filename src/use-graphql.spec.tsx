@@ -1,4 +1,4 @@
-import { UseGraphQLProvider, useGraphQL } from './use-graphql'
+import { UseGraphQLProvider, useQuery } from './use-graphql'
 import { GraphQLClient } from 'graphql-request'
 import gql from 'graphql-tag'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -12,7 +12,7 @@ describe('useGraphQL', () => {
 
     function App() {
       // console.log('aaaa')
-      const res = useGraphQL<{ Movie: any }>(gql`
+      const res = useQuery<{ Movie: any }>(gql`
         {
           Movie(title: "Inception") {
             releaseDate
@@ -36,4 +36,6 @@ Object {
       </UseGraphQLProvider>
     )
   })
+
+  it('should mutate', async () => {})
 })

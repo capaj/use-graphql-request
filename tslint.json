@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:latest", "tslint-config-prettier", "tslint-react"],
+  "extends": ["tslint:latest", "tslint-react", "prettier", "prettier/react"],
   "rules": {
     "ordered-imports": false,
     "no-submodule-imports": false

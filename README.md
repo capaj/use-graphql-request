@@ -14,16 +14,50 @@ npm i use-graphql-request
 npm i use-graphql-request graphql-request react graphql
 ```
 
-## Usage
+## API
+
+Library offers 3 components:
+
+### UseGraphQLProvider
+
+Register a client-a `graphql-request` instance to put into react context.
+
+### useQuery
+
+Runs a GQL query upon mount and whenever props change.
+
+### useMutation
+
+Returns a function and state to run GQL mutations.
+
+## Code samples
+
+all assume this wrapper:
+
+```tsx
+import { UseGraphQLProvider } from 'graphql-request'
+
+const rootElement = document.getElementById('root')
+ReactDOM.render(
+  <UseGraphQLProvider
+    client={new GraphQLClient('https://api.graph.cool/simple/v1/movies')}
+  >
+    <App />
+  </UseGraphQLProvider>,
+  rootElement
+)
+```
+
+## Sample Query
 
 [![Edit react-hooks-1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/2okylmqojr)
 
 ```tsx
 import gql from 'graphql-tag'
-import { UseGraphQLProvider, useGraphQL } from 'graphql-request'
+import { useGraphQL } from 'graphql-request'
 
 function App() {
-  const { data } = useGraphQL<{ Movie: any }>(gql`
+  const { data, loading, refetch } = useGraphQL<{ Movie: any }>(gql`
     {
       Movie(title: "Inception") {
         releaseDate
@@ -34,17 +68,44 @@ function App() {
     }
   `)
   console.log('resp', data) // logs undefined and then {"Movie":{"releaseDate":"2010-08-28T20:00:00.000Z","actors":[{"name":"Leonardo DiCaprio"},{"name":"Ellen Page"},{"name":"Tom Hardy"},{"name":"Joseph Gordon-Levitt"},{"name":"Marion Cotillard"}]}}
-  return <div className="App">{JSON.stringify(data)}</div>
+  return (
+    <>
+      <div className="App">{JSON.stringify(data)}</div>
+      <button disabled={loading} onClick={refetch}>
+        refetch
+      </button>
+    </>
+  )
 }
+```
 
-const rootElement = document.getElementById('root')
-ReactDOM.render(
-  <UseGraphQLProvider
-    client={new GraphQLClient('https://api.graph.cool/simple/v1/movies')}
+## Sample mutation
+
+```tsx
+const [{ loading }, execute] = useMutation(gql`
+  mutation($id: Float!, $name: String!) {
+    book(bookId: $id) {
+      edit(name: $name) {
+        id
+        name
+      }
+    }
+  }
+`)
+
+return (
+  <button
+    disabled={loading}
+    onClick={async () => {
+      const data = await execute({
+        id: 2,
+        name: 'Lord of the Rings III'
+      })
+      console.log('App -> mutated', data)
+    }}
   >
-    <App />
-  </UseGraphQLProvider>,
-  rootElement
+    mutate
+  </button>
 )
 ```
 
