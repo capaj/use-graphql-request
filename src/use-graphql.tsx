@@ -1,6 +1,12 @@
 import { print } from 'graphql'
 import { GraphQLClient } from 'graphql-request'
-import React, { useEffect, useState, useContext, ReactNode } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  ReactNode,
+  useRef
+} from 'react'
 
 interface IQueryState<T> {
   loading: boolean
@@ -31,9 +37,11 @@ export function useQuery<T>(query: any, variables?: object): IQueryState<T> {
     loading: true
   })
   const queryAsString = print(query)
+  const isMounted = useRef(false)
 
   useEffect(() => {
-    let isRelevant = true
+    isMounted.current = true
+
     const refetch = () => {
       setState({
         loading: true,
@@ -41,13 +49,13 @@ export function useQuery<T>(query: any, variables?: object): IQueryState<T> {
       })
       return graphQLClient.request<T>(queryAsString, variables).then(
         (data: T) => {
-          if (isRelevant) {
+          if (isMounted.current) {
             setState({ data, loading: false, refetch })
           }
           return data
         },
         (res) => {
-          if (isRelevant) {
+          if (isMounted.current) {
             setState({ errors: res.response.errors, loading: false, refetch })
           }
         }
@@ -55,19 +63,19 @@ export function useQuery<T>(query: any, variables?: object): IQueryState<T> {
     }
     graphQLClient.request<T>(queryAsString, variables).then(
       (data: T) => {
-        if (isRelevant) {
+        if (isMounted.current) {
           setState({ data, loading: false, refetch })
         }
       },
       (res) => {
-        if (isRelevant) {
+        if (isMounted.current) {
           setState({ errors: res.response.errors, loading: false, refetch })
         }
       }
     )
 
     return () => {
-      isRelevant = false
+      isMounted.current = false
     }
   }, [queryAsString, JSON.stringify(variables)])
 

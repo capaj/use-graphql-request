@@ -1,6 +1,6 @@
 {
   "name": "use-graphql-request",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a minimal react hook for querying graphql endpoint from react",
   "license": "MIT",
   "repository": "",
