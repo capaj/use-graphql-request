@@ -54,10 +54,10 @@ ReactDOM.render(
 
 ```tsx
 import gql from 'graphql-tag'
-import { useGraphQL } from 'graphql-request'
+import { useQuery } from 'graphql-request'
 
 function App() {
-  const { data, loading, refetch } = useGraphQL<{ Movie: any }>(gql`
+  const { data, loading, refetch } = useQuery<{ Movie: any }>(gql`
     {
       Movie(title: "Inception") {
         releaseDate
@@ -82,6 +82,9 @@ function App() {
 ## Sample mutation
 
 ```tsx
+import gql from 'graphql-tag'
+import { useMutation } from 'graphql-request'
+
 const [{ loading }, execute] = useMutation(gql`
   mutation($id: Float!, $name: String!) {
     book(bookId: $id) {
