@@ -4,7 +4,7 @@
 
 # use-graphql-request
 
-a minimal hook for querying graphql endpoint from react
+lightweight react hooks for querying graphql endpoint from react
 
 ## Install
 
